@@ -19,6 +19,8 @@
   "homepage": "https://github.com/trivikr/csurf-demo#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
     "express": "^4.16.3"
   }
 }

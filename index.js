@@ -1,14 +1,24 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
+const csurf = require("csurf");
+const cookieParser = require("cookie-parser");
 
 const PORT = 3000;
 const app = express();
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+const csrfMiddleware = csurf({
+  cookie: true
+});
 
-app.get('/', (req, res) => {
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+app.use(cookieParser());
+app.use(csrfMiddleware);
+
+app.get("/", (req, res) => {
   res.send(`
     <form action="/entry" method="POST">
       <div>
@@ -16,13 +26,16 @@ app.get('/', (req, res) => {
         <input id="message" name="message" type="text" />
       </div>
       <input type="submit" value="Submit" />
+      <input type="hidden" name="_csrf" value="${req.csrfToken()}" />
     </form>
   `);
 });
 
-app.post('/entry', (req, res) => {
+app.post("/entry", (req, res) => {
   console.log(`Message received: ${req.body.message}`);
-  res.send(`Message received: ${req.body.message}`);
+  res.send(
+    `CSRF token used: ${req.body._csrf}, Message received: ${req.body.message}`
+  );
 });
 
 app.listen(PORT, () => {
