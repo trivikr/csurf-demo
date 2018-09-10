@@ -4,6 +4,7 @@
   "description": "Demo of protecting against CSRF attack using csurf exress plugin",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js & node attacker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

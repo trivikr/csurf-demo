@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/entry", (req, res) => {
-  console.log(`Message received: ${req.body.message}`);
+  console.log(`Message received on Server: ${req.body.message}`);
   res.send(
     `CSRF token used: ${req.body._csrf}, Message received: ${req.body.message}`
   );
